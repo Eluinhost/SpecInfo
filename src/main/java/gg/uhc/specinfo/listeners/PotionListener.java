@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
 
 public class PotionListener implements Listener {
@@ -31,7 +30,6 @@ public class PotionListener implements Listener {
 
     protected String stringifyEffects(Collection<PotionEffect> effects) {
         Collection<String> stringified = Collections2.transform(effects, new Function<PotionEffect, String>() {
-            @Nullable
             @Override
             public String apply(PotionEffect effect) {
                 return effect.getType().getName() + ":" + (effect.getAmplifier() + 1);
