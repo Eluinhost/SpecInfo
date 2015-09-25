@@ -1,0 +1,20 @@
+name: ${project.name}
+main: ${project.groupId}.${project.artifactId}.Entry
+version: ${project.version}
+author: ghowden/Eluinhost
+database: false
+commands:
+  silenttp:
+    description: Teleport without leaving op broadcast, usable by spectators only.
+    usage: "USAGE: /<command> playerName"
+  specinfo:
+    description: Clear the tracking info
+    usage: "USAGE: /<command> clear"
+    permission: uhc.specinfo.command
+permissions:
+  uhc.specinfo.command:
+    default: op
+    description: usage of /specinfo command
+  uhc.specinfo.spectate:
+    default: false
+    description: always receive log messages
