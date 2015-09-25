@@ -35,12 +35,12 @@ Blocks are counted as part of a vein when they are next to each other (including
 ### Relevant configuration
 
 ```yaml
-crafting items: [ENCHANTMENT_TABLE, GOLDEN_APPLE, DIAMOND_SWORD, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS, ANVIL]
+digging blocks: [GOLD_ORE, DIAMOND_ORE, LAPIS_ORE, OBSIDIAN]
 max vein size: 30
 store vein ticks: 400
 ```
 
-`crafting items` = A list of [Material Names](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to enable vein tracking on
+`digging blocks` = A list of [Material Names](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to enable vein tracking on
 
 `max vein size` = How many blocks to check before stopping traversing a vein (stops using DIRT as a trackable block killing the server)
 
