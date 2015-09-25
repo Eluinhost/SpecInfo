@@ -71,7 +71,7 @@ Where:
 ### Relevant configuration
 
 ```yaml
-crafting items: [ENCHANTMENT_TABLE, GOLDEN_APPLE, DIAMOND_SWORD, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS, ANVIL]
+crafting items: [ENCHANTMENT_TABLE, GOLDEN_APPLE, DIAMOND_SWORD, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS, ANVIL, BOW]
 ```
 
 `crafting items` = A list of [Material Names](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) to enable crafting logging on
