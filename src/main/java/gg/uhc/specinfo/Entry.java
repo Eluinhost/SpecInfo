@@ -10,7 +10,7 @@ import gg.uhc.specinfo.listeners.DamageTakenListener;
 import gg.uhc.specinfo.listeners.ItemConsumeListener;
 import gg.uhc.specinfo.listeners.PotionListener;
 import gg.uhc.specinfo.listeners.veins.VeinBreakListener;
-import gg.uhc.specinfo.listeners.veins.VeinHandler;
+import gg.uhc.specinfo.listeners.veins.VeinCache;
 import gg.uhc.specinfo.listeners.veins.VeinTraverser;
 import gg.uhc.specinfo.log.ConsoleMessageLogger;
 import gg.uhc.specinfo.log.MessageLogger;
@@ -68,9 +68,9 @@ public class Entry extends JavaPlugin {
 
         MessageLogger specsAndConsole = new MultiMessageLogger(new ConsoleMessageLogger(), new SpectatorsMessageLogger(sender));
 
-       VeinHandler veinHandler = new VeinHandler(this, new VeinTraverser(maxVeinSize), storeVeinTicks);
+       VeinCache veinCache = new VeinCache(this, new VeinTraverser(maxVeinSize), storeVeinTicks);
 
-        VeinBreakListener veinBreakListener = new VeinBreakListener(veinHandler, specsAndConsole, veins);
+        VeinBreakListener veinBreakListener = new VeinBreakListener(veinCache, specsAndConsole, veins);
         List<Listener> listeners = Lists.newArrayList(
                 new CraftItemListener(specsAndConsole, crafting),
                 veinBreakListener,

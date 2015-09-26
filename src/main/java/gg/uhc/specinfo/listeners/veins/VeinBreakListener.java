@@ -20,13 +20,13 @@ public class VeinBreakListener implements Listener {
 
     protected static final String LOG_FORMAT = "%s dug %s (%d/%d %dT) at %d:%d:%d";
 
-    protected final VeinHandler handler;
+    protected final VeinCache cache;
     protected final MessageLogger sendTo;
     protected final Set<Material> check;
     protected final Map<UUID, Multiset<Material>> tracking;
 
-    public VeinBreakListener(VeinHandler handler, MessageLogger sendTo, Set<Material> check) {
-        this.handler = handler;
+    public VeinBreakListener(VeinCache cache, MessageLogger sendTo, Set<Material> check) {
+        this.cache = cache;
         this.sendTo = sendTo;
         this.check = check;
         this.tracking = Maps.newHashMap();
@@ -54,7 +54,7 @@ public class VeinBreakListener implements Listener {
         // increment the material type
         counts.add(type);
 
-        VeinInformation vein = handler.getOrCreateVein(block);
+        VeinInformation vein = cache.getOrCreateVein(block);
 
         vein.setBlockAsDug(block);
 
@@ -72,7 +72,7 @@ public class VeinBreakListener implements Listener {
 
         // remove the vein if it was dug all out
         if (dug == total) {
-            handler.removeVein(vein);
+            cache.removeVein(vein);
         }
     }
 
