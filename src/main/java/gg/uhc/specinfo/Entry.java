@@ -31,16 +31,6 @@ public class Entry extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        ChatSender sender;
-        try {
-            sender = new ChatSender(this);
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
-            setEnabled(false);
-            getLogger().severe("This version of Spigot is not supported by this plugin");
-            return;
-        }
-
         FileConfiguration config = getConfig();
         config.options().copyDefaults(true);
         saveConfig();
@@ -66,7 +56,7 @@ public class Entry extends JavaPlugin {
             return;
         }
 
-        MessageLogger specsAndConsole = new MultiMessageLogger(new ConsoleMessageLogger(), new SpectatorsMessageLogger(sender));
+        MessageLogger specsAndConsole = new MultiMessageLogger(new ConsoleMessageLogger(), new SpectatorsMessageLogger());
 
        VeinCache veinCache = new VeinCache(this, new VeinTraverser(maxVeinSize), storeVeinTicks);
 

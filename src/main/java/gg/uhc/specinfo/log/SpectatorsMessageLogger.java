@@ -1,6 +1,5 @@
 package gg.uhc.specinfo.log;
 
-import gg.uhc.specinfo.ChatSender;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -15,12 +14,9 @@ public class SpectatorsMessageLogger extends MessageLogger {
 
     public static final String SPECTATE_PERMISSION = "uhc.specinfo.spectate";
 
-    protected final ChatSender sender;
     protected final BaseComponent tp;
 
-    public SpectatorsMessageLogger(ChatSender sender) {
-        this.sender = sender;
-
+    public SpectatorsMessageLogger() {
         tp = new TextComponent(" TP");
         tp.setBold(true);
         tp.setColor(ChatColor.GRAY);
@@ -40,7 +36,7 @@ public class SpectatorsMessageLogger extends MessageLogger {
         // log to all online in specatator mode or permission
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getGameMode() == GameMode.SPECTATOR || player.hasPermission(SPECTATE_PERMISSION)) {
-                sender.sendChat(component, player);
+                player.spigot().sendMessage(component);
             }
         }
     }
