@@ -1,6 +1,8 @@
 package gg.uhc.specinfo.listeners;
 
 import gg.uhc.specinfo.log.MessageLogger;
+import gg.uhc.specinfo.log.extras.ItemExtra;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,11 +39,11 @@ public class CraftItemListener implements Listener {
         ItemMeta meta = crafted.getItemMeta();
 
         if (meta.hasDisplayName()) {
-            itemName += " (" + meta.getDisplayName() + ")";
+            itemName += " (" + ChatColor.stripColor(meta.getDisplayName()) + ")";
         }
 
         Player clicked = (Player) event.getWhoClicked();
 
-        sendTo.logMessage(clicked, String.format(LOG_FORMAT, itemName));
+        sendTo.logMessage(clicked, String.format(LOG_FORMAT, itemName), new ItemExtra(crafted));
     }
 }

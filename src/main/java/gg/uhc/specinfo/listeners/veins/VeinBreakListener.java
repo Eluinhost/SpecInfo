@@ -4,7 +4,7 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multiset;
 import gg.uhc.specinfo.log.MessageLogger;
-import gg.uhc.specinfo.log.teleports.LocationTeleportClickable;
+import gg.uhc.specinfo.log.extras.LocationTeleportClickable;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

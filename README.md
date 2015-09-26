@@ -58,7 +58,7 @@ Permission: `uhc.specinfo.command` default op
 
 Keeps track of when particular items are crafted. Sends a message in the format:
 
-`S» [<playerName>] Crafted <item> [displayName]`
+`S» [<playerName>] Crafted <item> [displayName] | ITEM`
 
 Where:
 
@@ -67,6 +67,8 @@ Where:
 `<item>` = the name of the item crafted
 
 `[displayName]` = if an item has a display name it will show up in brackets
+
+`ITEM` = hover over this to view the actual item crafted
 
 ### Relevant configuration
 
@@ -96,7 +98,7 @@ Where:
 
 Keeps track of consumed items. Sends a message in the format:
 
-`S» [<playerName>] Ate a <item> [displayName]`
+`S» [<playerName>] Ate a <item> [displayName] | ITEM`
 
 Where:
 
@@ -105,6 +107,8 @@ Where:
 `<item>` = the name of the item eaten
 
 `[displayName]` = if an item has a display name it will show up in brackets
+
+`ITEM` = hover over this to view the actual item eaten
 
 ### Relevant configuration
 
@@ -118,10 +122,12 @@ eating items: [GOLDEN_APPLE]
 
 Keeps track of when a potion is drank or thrown. Sends a message in the format:
 
-`S» [<playerName>] drank a potion (<effects>)` OR `S» [<playerName>] threw a potion (<effects>)`
+`S» [<playerName>] drank a potion (<effects>) | ITEM` OR `S» [<playerName>] threw a potion (<effects>) | ITEM`
 
 Where:
 
 `<playerName>` = the name of the crafter, clicking this will teleport you to the player's current location
 
 `<effects>` = The list of potion effects in the format `<name>:<amplifer>` separated by ` + `
+
+`ITEM` = hover over this to view the actual potion drank/thrown

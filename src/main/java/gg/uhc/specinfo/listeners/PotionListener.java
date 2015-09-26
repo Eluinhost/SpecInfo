@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Collections2;
 import gg.uhc.specinfo.log.MessageLogger;
+import gg.uhc.specinfo.log.extras.ItemExtra;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
@@ -44,19 +45,20 @@ public class PotionListener implements Listener {
 
         Player player = event.getPlayer();
 
-        sendTo.logMessage(player, String.format(DRANK_FORMAT, stringifyEffects(effects)));
+        sendTo.logMessage(player, String.format(DRANK_FORMAT, stringifyEffects(effects)), new ItemExtra(event.getItem()));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void on(ProjectileLaunchEvent event) {
         if (!(event.getEntity() instanceof ThrownPotion)) return;
 
-        if (!(event.getEntity().getShooter() instanceof Player)) return;
+        ThrownPotion potion = (ThrownPotion) event.getEntity();
 
-        Player player = (Player) event.getEntity().getShooter();
-        Collection<PotionEffect> effects = ((ThrownPotion) event.getEntity()).getEffects();
+        if (!(potion.getShooter() instanceof Player)) return;
 
-        sendTo.logMessage(player, String.format(THROWN_FORMAT, stringifyEffects(effects)));
+        Player player = (Player) potion.getShooter();
+
+        sendTo.logMessage(player, String.format(THROWN_FORMAT, stringifyEffects(potion.getEffects())), new ItemExtra(potion.getItem()));
     }
 
     static class PotionEffectConverter implements Function<PotionEffect, String> {
