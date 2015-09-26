@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class ItemConsumeListener implements Listener {
 
-    protected static final String LOG_FORMAT = "%s ate a %s";
+    protected static final String LOG_FORMAT = "Ate a %s";
 
     protected final MessageLogger sendTo;
     protected final Set<Material> listen;
@@ -40,6 +40,6 @@ public class ItemConsumeListener implements Listener {
 
         Player player = event.getPlayer();
 
-        sendTo.logFormattedMessage(player, LOG_FORMAT, player.getName(), itemName);
+        sendTo.logMessage(player, String.format(LOG_FORMAT, itemName));
     }
 }

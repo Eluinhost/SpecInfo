@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multiset;
 import gg.uhc.specinfo.log.MessageLogger;
+import gg.uhc.specinfo.log.teleports.LocationTeleportClickable;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ import java.util.UUID;
 
 public class VeinBreakListener implements Listener {
 
-    protected static final String LOG_FORMAT = "%s dug %s (%d/%d %dT) at %d:%d:%d";
+    protected static final String LOG_FORMAT = "Dug %s (%d/%d %dT)";
 
     protected final VeinCache cache;
     protected final MessageLogger sendTo;
@@ -61,13 +62,13 @@ public class VeinBreakListener implements Listener {
         int total = vein.getBlockCount();
         int dug = vein.getDugCount();
 
-        sendTo.logFormattedMessage(
-                player,
-                LOG_FORMAT,
-                player.getName(),
-                type.name(),
-                dug, total, counts.count(type),
-                block.getX(), block.getY(), block.getZ()
+        sendTo.logMessage(player,
+                String.format(
+                        LOG_FORMAT,
+                        type.name(),
+                        dug, total, counts.count(type)
+                ),
+                new LocationTeleportClickable(block.getLocation())
         );
 
         // remove the vein if it was dug all out

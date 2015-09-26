@@ -19,22 +19,19 @@ import java.util.Collection;
 
 public class PotionListener implements Listener {
 
-    protected static final String DRANK_FORMAT = "%s drank a potion (%s)";
-    protected static final String THROWN_FORMAT = "%s threw a potion (%s)";
+    protected static final String DRANK_FORMAT = "Drank a potion (%s)";
+    protected static final String THROWN_FORMAT = "Threw a potion (%s)";
 
     protected final MessageLogger sendTo;
+    protected final PotionEffectConverter converter;
 
     public PotionListener(MessageLogger sendTo) {
         this.sendTo = sendTo;
+        this.converter = new PotionEffectConverter();
     }
 
     protected String stringifyEffects(Collection<PotionEffect> effects) {
-        Collection<String> stringified = Collections2.transform(effects, new Function<PotionEffect, String>() {
-            @Override
-            public String apply(PotionEffect effect) {
-                return effect.getType().getName() + ":" + (effect.getAmplifier() + 1);
-            }
-        });
+        Collection<String> stringified = Collections2.transform(effects, converter);
 
         return Joiner.on(" + ").join(stringified);
     }
@@ -47,7 +44,7 @@ public class PotionListener implements Listener {
 
         Player player = event.getPlayer();
 
-        sendTo.logFormattedMessage(player, DRANK_FORMAT, player.getName(), stringifyEffects(effects));
+        sendTo.logMessage(player, String.format(DRANK_FORMAT, stringifyEffects(effects)));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -59,6 +56,13 @@ public class PotionListener implements Listener {
         Player player = (Player) event.getEntity().getShooter();
         Collection<PotionEffect> effects = ((ThrownPotion) event.getEntity()).getEffects();
 
-        sendTo.logFormattedMessage(player, THROWN_FORMAT, player.getName(), stringifyEffects(effects));
+        sendTo.logMessage(player, String.format(THROWN_FORMAT, stringifyEffects(effects)));
+    }
+
+    static class PotionEffectConverter implements Function<PotionEffect, String> {
+        @Override
+        public String apply(PotionEffect effect) {
+            return effect.getType().getName() + ":" + (effect.getAmplifier() + 1);
+        }
     }
 }

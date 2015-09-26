@@ -14,11 +14,11 @@ log messages and be able to TP (permission default is false, you must use a perm
 Keeps track of configured veins of blocks as players mine them. When a player mines a tracked block a message like this 
 is sent:
 
-`S» <playerName> dug <block> (<dug>/<vein> <total>T) at <x>:<y>:<z>`
+`S» [<playerName>] Dug <block> (<dug>/<vein> <total>T) | <world>:<x>:<y>:<z>`
 
 Where:
 
-`<playerName>` = the name of the player who dug the block
+`<playerName>` = the name of the player who dug the block, clicking this will teleport you to the player's current location
 
 `<block>` = the name of the block that was dug
 
@@ -28,7 +28,7 @@ Where:
 
 `<total>` = how many of this block the player has dug since last clear/last restart/last reload
 
-`<x>:<y>:<z>` = the coordinates of the block
+`<world>:<x>:<y>:<z>` = the coordinates of the block, clicking this will teleport you to the location of the block
 
 Blocks are counted as part of a vein when they are next to each other (including diagonally; a 3x3)
 
@@ -58,11 +58,11 @@ Permission: `uhc.specinfo.command` default op
 
 Keeps track of when particular items are crafted. Sends a message in the format:
 
-`S» <playerName> crafted a <item> [displayName]`
+`S» [<playerName>] Crafted <item> [displayName]`
 
 Where:
 
-`<playerName>` = the name of the crafter
+`<playerName>` = the name of the crafter, clicking this will teleport you to the player's current location
 
 `<item>` = the name of the item crafted
 
@@ -80,11 +80,11 @@ crafting items: [ENCHANTMENT_TABLE, GOLDEN_APPLE, DIAMOND_SWORD, DIAMOND_HELMET,
 
 Keeps track of when player damage is taken. Sends a message in the format:
 
-`S» <playerName> took <damage> damage from <source> [entityName]`
+`S» [<playerName>] Took <damage> damage from <source> [entityName]`
 
 Where:
 
-`<playerName>` = the name of the player who took damage
+`<playerName>` = the name of the player who took damage, clicking this will teleport you to the player's current location
 
 `<damage>` = how much damage was taken
 
@@ -96,11 +96,11 @@ Where:
 
 Keeps track of consumed items. Sends a message in the format:
 
-`S» <playerName> ate a <item> [displayName]`
+`S» [<playerName>] Ate a <item> [displayName]`
 
 Where:
 
-`<playerName>` = the name of the crafter
+`<playerName>` = the name of the crafter, clicking this will teleport you to the player's current location
 
 `<item>` = the name of the item eaten
 
@@ -118,10 +118,10 @@ eating items: [GOLDEN_APPLE]
 
 Keeps track of when a potion is drank or thrown. Sends a message in the format:
 
-`S» <playerName> drank a potion (<effects>)` OR `S» <playerName> threw a potion (<effects>)`
+`S» [<playerName>] drank a potion (<effects>)` OR `S» [<playerName>] threw a potion (<effects>)`
 
 Where:
 
-`<playerName>` = the name of the crafter
+`<playerName>` = the name of the crafter, clicking this will teleport you to the player's current location
 
 `<effects>` = The list of potion effects in the format `<name>:<amplifer>` separated by ` + `

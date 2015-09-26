@@ -1,5 +1,7 @@
 package gg.uhc.specinfo.log;
 
+import gg.uhc.specinfo.log.teleports.PlayerTeleportClickable;
+import gg.uhc.specinfo.log.teleports.TeleportClickable;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -14,30 +16,40 @@ public class SpectatorsMessageLogger extends MessageLogger {
 
     public static final String SPECTATE_PERMISSION = "uhc.specinfo.spectate";
 
-    protected final BaseComponent tp;
+    @Override
+    public void logMessage(Player related, String message, TeleportClickable... teleports) {
+        BaseComponent component = new TextComponent(PREFIX);
+        component.setColor(ChatColor.DARK_GRAY);
 
-    public SpectatorsMessageLogger() {
-        tp = new TextComponent(" TP");
-        tp.setBold(true);
-        tp.setColor(ChatColor.GRAY);
-        tp.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent("Teleport to associated player")}));
-    }
-
-    protected void log(Player related, String message) {
-        TextComponent component = new TextComponent(message);
-
+        // add related player
         if (related != null) {
-            BaseComponent teleport = tp.duplicate();
-            teleport.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/specinfo:silenttp " + related.getName()));
-
-            component.addExtra(teleport);
+            TextComponent relatedPlayer = getTrigger(new PlayerTeleportClickable(related));
+            relatedPlayer.setText("[" + relatedPlayer.getText() + "] ");
+            component.addExtra(relatedPlayer);
         }
 
-        // log to all online in specatator mode or permission
+        // add message
+        component.addExtra(message);
+
+        // add extra clickables
+        for (TeleportClickable clickable : teleports) {
+            component.addExtra(" | ");
+            component.addExtra(getTrigger(clickable));
+        }
+
+        // send the message
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getGameMode() == GameMode.SPECTATOR || player.hasPermission(SPECTATE_PERMISSION)) {
                 player.spigot().sendMessage(component);
             }
         }
+    }
+
+    protected TextComponent getTrigger(TeleportClickable clickable) {
+        TextComponent trigger = new TextComponent(clickable.getDisplayText());
+        trigger.setColor(ChatColor.GRAY);
+        trigger.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(clickable.getHoverText())}));
+        trigger.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/specinfo:silenttp "  + clickable.getSubcommand()));
+        return trigger;
     }
 }

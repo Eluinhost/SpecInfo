@@ -2,6 +2,7 @@ package gg.uhc.specinfo.log;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import gg.uhc.specinfo.log.teleports.TeleportClickable;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -31,9 +32,9 @@ public class MultiMessageLogger extends MessageLogger {
     }
 
     @Override
-    protected void log(Player related, String message) {
+    public void logMessage(Player related, String message, TeleportClickable... teleports) {
         for (MessageLogger sender : wrapped) {
-            sender.log(related, message);
+            sender.logMessage(related, message, teleports);
         }
     }
 }

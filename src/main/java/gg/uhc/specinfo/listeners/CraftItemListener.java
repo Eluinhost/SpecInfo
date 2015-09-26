@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class CraftItemListener implements Listener {
 
-    protected static final String LOG_FORMAT = "%s crafted a %s";
+    protected static final String LOG_FORMAT = "Crafted %s";
 
     protected final MessageLogger sendTo;
     protected Set<Material> logMaterials;
@@ -42,6 +42,6 @@ public class CraftItemListener implements Listener {
 
         Player clicked = (Player) event.getWhoClicked();
 
-        sendTo.logFormattedMessage(clicked, LOG_FORMAT, clicked.getName(), itemName);
+        sendTo.logMessage(clicked, String.format(LOG_FORMAT, itemName));
     }
 }

@@ -13,7 +13,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class DamageTakenListener implements Listener {
 
-    protected static final String LOG_FORMAT = "%s took %.2f damage from %s";
+    protected static final String LOG_FORMAT = "Took %.2f damage from %s";
 
     protected final MessageLogger sendTo;
 
@@ -52,13 +52,7 @@ public class DamageTakenListener implements Listener {
             causeString += " (" + source + ")";
         }
 
-        sendTo.logFormattedMessage(
-                damaged,
-                LOG_FORMAT,
-                damaged.getName(),
-                event.getFinalDamage(),
-                causeString
-        );
+        sendTo.logMessage(damaged, String.format(LOG_FORMAT, event.getFinalDamage(), causeString));
     }
 
     protected String getNameOfEntity(Entity entity) {
