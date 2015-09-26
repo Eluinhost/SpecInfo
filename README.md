@@ -3,9 +3,11 @@ SpecInfo
 
 **Supports Spigot 1.8+ and Java 7+**
 
-All log messages are sent to console and all online spectators. Spectators can click on `TP` in the message to teleport
-to the associated player with the message. Anyone with the permission `uhc.specinfo.specate` will also receive spectate
-log messages and be able to TP (permission default is false, you must use a permission plugin to give it).
+All log messages are sent to console and all online spectators. Spectators can click on the player name in the message 
+to teleport to the associated player with the message. Some messages also contain coordinates to where the event happened
+ that can be teleported to. Anyone with the permission `uhc.specinfo.specate` will also receive log messages and be 
+ able to TP (permission default is false, you must use a permission plugin to give it if you want to use it without
+ spectator mode).
 
 # Logging
 
