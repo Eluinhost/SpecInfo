@@ -1,6 +1,10 @@
 package gg.uhc.specinfo.listeners;
 
+import com.google.common.collect.ImmutableRangeMap;
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeMap;
 import gg.uhc.specinfo.log.MessageLogger;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -11,14 +15,32 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
+import java.text.NumberFormat;
+
 public class DamageTakenListener implements Listener {
 
-    protected static final String LOG_FORMAT = "Took %.2f damage from %s";
+    protected static final String LOG_FORMAT = "%s damage from %s %s->%s";
 
+    protected final RangeMap<Double, ChatColor> healths;
     protected final MessageLogger sendTo;
+    protected final NumberFormat format;
 
     public DamageTakenListener(MessageLogger sendTo) {
         this.sendTo = sendTo;
+        this.format = NumberFormat.getNumberInstance();
+        this.format.setMaximumFractionDigits(2);
+        this.format.setMinimumFractionDigits(0);
+
+        double dead = 0D;
+        double full = 100D;
+        double lowerSplit = full / 3D;
+        double higherSplit = lowerSplit * 2D;
+
+        healths = ImmutableRangeMap.<Double, ChatColor>builder()
+                .put(Range.closed(dead, lowerSplit), ChatColor.RED)
+                .put(Range.open(lowerSplit, higherSplit), ChatColor.GOLD)
+                .put(Range.closed(higherSplit, full), ChatColor.GREEN)
+                .build();
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -52,7 +74,20 @@ public class DamageTakenListener implements Listener {
             causeString += " (" + source + ")";
         }
 
-        sendTo.logMessage(damaged, String.format(LOG_FORMAT, event.getFinalDamage(), causeString));
+        double max = damaged.getMaxHealth();
+        double damage = event.getFinalDamage();
+        double previous = damaged.getHealth();
+        double after = Math.max(0, previous - damage);
+
+        sendTo.logMessage(damaged,
+                String.format(
+                        LOG_FORMAT,
+                        this.format.format(damage),
+                        causeString,
+                        healths.get(previous / max * 100D) + this.format.format(previous),
+                        healths.get(after / max  * 100) + this.format.format(after)
+                )
+        );
     }
 
     protected String getNameOfEntity(Entity entity) {

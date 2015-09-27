@@ -84,7 +84,7 @@ crafting items: [ENCHANTMENT_TABLE, GOLDEN_APPLE, DIAMOND_SWORD, DIAMOND_HELMET,
 
 Keeps track of when player damage is taken. Sends a message in the format:
 
-`S» [<playerName>] Took <damage> damage from <source> [entityName]`
+`S» [<playerName>] <damage> damage from <source> [entityName] <previous>-><new>`
 
 Where:
 
@@ -95,6 +95,8 @@ Where:
 `<source>` = the type of damage
 
 `[entityName]` = if the damage was caused by an entity then it will show up here, if it was a player it shows their name
+
+`<previous>-><new>` = the previous and new health the player is on coloured by their percent health
 
 ## Eating
 
