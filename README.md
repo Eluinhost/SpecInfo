@@ -46,7 +46,8 @@ store vein ticks: 400
 
 `max vein size` = How many blocks to check before stopping traversing a vein (stops using DIRT as a trackable block killing the server)
 
-`store vein ticks` = How many ticks before we forget about a vein after it was found. After this time if it is mined again it will count as a new vein.
+`store vein ticks` = How many ticks before we forget about a vein after it was found. Timer is refreshed every time a 
+block in it is dug. After this time if it is mined again it will count as a new vein.
 
 ### Relevant commands
 
