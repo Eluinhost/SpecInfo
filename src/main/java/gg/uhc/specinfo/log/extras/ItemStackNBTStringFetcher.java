@@ -1,5 +1,6 @@
 package gg.uhc.specinfo.log.extras;
 
+import com.google.common.base.Preconditions;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,6 +39,9 @@ public class ItemStackNBTStringFetcher {
     }
 
     public static String readFromItemStack(ItemStack stack) {
+        Preconditions.checkNotNull(stack);
+        Preconditions.checkArgument(stack.getTypeId() != 0, "Stack cannot be air");
+
         if (!ensureNMS()) {
             return null;
         }
